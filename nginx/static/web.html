@@ -1,0 +1,152 @@
+<!-- Language: HTML -->
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Docker Web API - Plataforma Profesional</title>
+    <!-- Importar Tailwind CSS desde CDN con configuración personalizada -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#3b82f6',
+                        secondary: '#6366f1',
+                        success: '#10b981',
+                        warning: '#f59e0b',
+                        error: '#ef4444'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'ui-sans-serif', 'system-ui']
+                    },
+                    animation: {
+                        pulseSlow: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite'
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Función para consumir la API -->
+    <script>
+        async function llamarApi(route) {
+            try {
+                const endpoint = route ? `/api/${route}` : '/api';
+                const response = await fetch(endpoint);
+                const data = await response.json();
+                document.getElementById('resultado').textContent = JSON.stringify(data, null, 2);
+            } catch (error) {
+                console.error('Error al llamar la API:', error);
+                document.getElementById('resultado').textContent = 'Error al conectar con la API.';
+            }
+        }
+    </script>
+    <!-- Estilos adicionales para animaciones y transiciones -->
+    <style>
+        .btn-hover:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+
+<body class="bg-gradient-to-r from-primary to-secondary font-sans min-h-screen flex flex-col">
+    <!-- Header -->
+    <header class="bg-white shadow-md p-4">
+        <div class="container mx-auto flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <!-- Icono SVG -->
+                <svg class="w-10 h-10 text-primary animate-pulseSlow" fill="none" stroke="currentColor"
+                    viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M12 8c-1.657 0-3 1.567-3 3.5S10.343 15 12 15s3-1.567 3-3.5S13.657 8 12 8z"></path>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2z"></path>
+                </svg>
+                <h1 class="text-3xl font-bold text-gray-800">Docker Web API</h1>
+            </div>
+            <nav class="hidden sm:block">
+                <ul class="flex space-x-6">
+                    <li><a href="#!" onclick="llamarApi('')"
+                            class="text-gray-600 hover:text-primary transition-colors">Básica</a></li>
+                    <li><a href="#!" onclick="llamarApi('details')"
+                            class="text-gray-600 hover:text-primary transition-colors">Detalles</a></li>
+                    <li><a href="#!" onclick="llamarApi('info')"
+                            class="text-gray-600 hover:text-primary transition-colors">Info</a></li>
+                    <li><a href="#!" onclick="llamarApi('users')"
+                            class="text-gray-600 hover:text-primary transition-colors">Usuarios</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow flex items-center justify-center p-6">
+        <div
+            class="bg-white rounded-2xl shadow-2xl p-8 w-full max-w-3xl transform transition-all duration-300 hover:scale-105">
+            <p class="text-xl text-gray-600 mb-6 text-center">
+                Explora nuestro amplio set de servicios a través de los endpoints de nuestra API.
+            </p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8">
+                <button onclick="llamarApi('')"
+                    class="btn-hover w-full bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-6 rounded transition-colors duration-200 shadow-lg flex items-center justify-center">
+                    <!-- Icono de ver -->
+                    <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z">
+                        </path>
+                    </svg>
+                    API Básica
+                </button>
+                <button onclick="llamarApi('details')"
+                    class="btn-hover w-full bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-3 px-6 rounded transition-colors duration-200 shadow-lg flex items-center justify-center">
+                    <!-- Icono de lista -->
+                    <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6h16M4 10h16M4 14h16M4 18h16"></path>
+                    </svg>
+                    Detalles
+                </button>
+                <button onclick="llamarApi('info')"
+                    class="btn-hover w-full bg-warning hover:bg-yellow-500 text-white font-bold py-3 px-6 rounded transition-colors duration-200 shadow-lg flex items-center justify-center">
+                    <!-- Icono de información -->
+                    <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M13 16h-1v-4h-1m1-4h.01M12 20a8 8 0 100-16 8 8 0 000 16z"></path>
+                    </svg>
+                    Info
+                </button>
+                <button onclick="llamarApi('users')"
+                    class="btn-hover w-full bg-error hover:bg-red-500 text-white font-bold py-3 px-6 rounded transition-colors duration-200 shadow-lg flex items-center justify-center">
+                    <!-- Icono de usuarios -->
+                    <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M17 20h5v-2a4 4 0 00-3-3.87M9 20H4v-2a4 4 0 013-3.87m4-3.13a4 4 0 110-8 4 4 0 010 8zM17 8a4 4 0 110-8 4 4 0 010 8z">
+                        </path>
+                    </svg>
+                    Usuarios
+                </button>
+            </div>
+            <div class="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                <pre id="resultado" class="text-sm text-gray-700 whitespace-pre-wrap h-48 overflow-auto"></pre>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white shadow-inner p-4">
+        <div class="container mx-auto text-center text-gray-600">
+            &copy; 2025 Docker Web API - Todos los derechos reservados
+        </div>
+    </footer>
+</body>
+
+</html>
